@@ -12,35 +12,17 @@
 // ============================================================================
 package org.talend.designer.components.tishadoopprovider;
 
-import java.io.File;
-import java.net.URL;
-
-import org.apache.log4j.Logger;
-import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.Path;
-import org.talend.designer.codegen.additionaljet.AbstractJetFileProvider;
+import org.eclipse.core.runtime.IPath;
+import org.talend.designer.codegen.additionaljet.AbstractResourcesJetFileProvider;
 
 /**
  * @author rdubois
  * 
  */
-public class SparkCodeJetFileProvider extends AbstractJetFileProvider {
-
-    private static Logger logger = Logger.getLogger(SparkCodeJetFileProvider.class);
+public class SparkCodeJetFileProvider extends AbstractResourcesJetFileProvider {
 
     @Override
-    protected File getExternalFrameLocation() {
-        try {
-            URL url = FileLocator.find(TisHadoopComponentProviderActivator.getDefault().getBundle(),
-                    new Path("resources/spark"), null); //$NON-NLS-1$
-
-            URL fileUrl = FileLocator.toFileURL(url);
-            return new File(fileUrl.getPath());
-
-        } catch (Exception e) {
-            logger.error(e);
-        }
-        return null;
+    protected IPath getBasePath() {
+        return super.getBasePath().append("spark"); //$NON-NLS-1$
     }
-
 }
